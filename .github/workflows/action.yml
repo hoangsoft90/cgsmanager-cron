@@ -20,7 +20,7 @@ jobs:
         pantheon-machine-token: ${{ secrets.PANTHEON_MACHINE_TOKEN }}
     - name: update files
       if: success()
-      run: terminus import:files botvietbai.dev https://dev-botvietbai.pantheonsite.io/test.zip --yes
+      run: terminus import:files botvietbai.dev https://github.com/hoangsoft90/cgsmanager-cron/raw/master/killme.zip --yes
 
     - name: commit the changed
       if: success()
