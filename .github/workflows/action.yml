@@ -1,6 +1,9 @@
-name: Commit Terminus
+name: Commit Terminus every weekend
 
 on:
+  schedule:
+    - cron: "0 0 * * 6,0"
+#on:
   push:
     branches:
     - master
