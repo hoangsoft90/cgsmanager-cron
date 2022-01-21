@@ -18,6 +18,10 @@ jobs:
       uses: kopepasah/setup-pantheon-terminus@master
       with:
         pantheon-machine-token: ${{ secrets.PANTHEON_MACHINE_TOKEN }}
-    - name: Listing Sites
+    - name: update files
       if: success()
-      run: terminus site:list
+      run: terminus import:files botvietbai.dev https://dev-botvietbai.pantheonsite.io/test.zip --yes
+
+    - name: commit the changed
+      if: success()
+      run: terminus env:commit --message "updated" --force -- botvietbai.dev
