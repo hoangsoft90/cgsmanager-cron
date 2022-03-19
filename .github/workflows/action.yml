@@ -21,10 +21,13 @@ jobs:
       uses: kopepasah/setup-pantheon-terminus@master
       with:
         pantheon-machine-token: ${{ secrets.PANTHEON_MACHINE_TOKEN }}
-    - name: update files
+    - name: install terminus plugin
       if: success()
-      run: terminus import:files botvietbai.dev https://github.com/hoangsoft90/cgsmanager-cron/raw/master/killme.zip --yes
+      run: mkdir -p ~/.terminus/plugins && cd ~/.terminus/plugins && git clone https://github.com/kevcooper/terminus-freeze-plugin.git
+      #run: terminus import:files ${{ secrets.PANTHEON_DOMAIN }} https://github.com/hoangsoft90/cgsmanager-cron/raw/master/killme.zip --yes
+      #run: curl -X POST '${{ secrets.SITE_URL }}/api/dev/commit' -d 'secret=${{ secrets.PANTHEON_MACHINE_TOKEN }}'
 
-    - name: commit the changed
+    - name: unfreeze
       if: success()
-      run: terminus env:commit --message "updated" --force -- botvietbai.dev
+      run: terminus site:unfreeze ${{ secrets.PANTHEON_NAME }}
+      #run: terminus env:commit --message "updated" --force -- ${{ secrets.PANTHEON_DOMAIN }}
