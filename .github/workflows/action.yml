@@ -30,7 +30,10 @@ jobs:
     - name: install terminus plugin
       if: success()
       #run: mkdir -p ~/.terminus/plugins && cd ~/.terminus/plugins && git clone https://github.com/kevcooper/terminus-freeze-plugin.git
-      run: terminus self:plugin:create hello-world --project-name=terminus-plugin-project/hello-world && ls -a
+      run: |
+        terminus self:plugin:create hello-world --project-name=terminus-plugin-project/hello-world && \
+        wget -O hello-world/src/Commands/UnfreezeCommand.php https://raw.githubusercontent.com/kevcooper/terminus-freeze-plugin/master/src/Commands/UnfreezeCommand.php && \
+        sed -i 's/KevCooper\\TerminusFreeze\\Commands/Pantheon\\TerminusHello\\Commands/' hello-world/src/Commands/UnfreezeCommand.php
       #run: terminus import:files ${{ secrets.PANTHEON_DOMAIN }} https://github.com/hoangsoft90/cgsmanager-cron/raw/master/killme.zip --yes
       #run: curl -X POST '${{ secrets.SITE_URL }}/api/dev/commit' -d 'secret=${{ secrets.PANTHEON_MACHINE_TOKEN }}'
 
