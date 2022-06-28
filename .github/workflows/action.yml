@@ -7,6 +7,12 @@ on:
   push:
     branches:
     - master
+  
+  workflow_dispatch:
+    inputs:
+      token:
+        description: 'secret token'
+        required: true
 
 jobs:
   deploy:
