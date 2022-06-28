@@ -7,7 +7,7 @@ on:
   push:
     branches:
     - master
-  
+
   workflow_dispatch:
     inputs:
       token:
@@ -29,7 +29,8 @@ jobs:
         pantheon-machine-token: ${{ secrets.PANTHEON_MACHINE_TOKEN }}
     - name: install terminus plugin
       if: success()
-      run: mkdir -p ~/.terminus/plugins && cd ~/.terminus/plugins && git clone https://github.com/kevcooper/terminus-freeze-plugin.git
+      #run: mkdir -p ~/.terminus/plugins && cd ~/.terminus/plugins && git clone https://github.com/kevcooper/terminus-freeze-plugin.git
+      run: terminus self:plugin:create hello-world --project-name=terminus-plugin-project/hello-world && ls -a
       #run: terminus import:files ${{ secrets.PANTHEON_DOMAIN }} https://github.com/hoangsoft90/cgsmanager-cron/raw/master/killme.zip --yes
       #run: curl -X POST '${{ secrets.SITE_URL }}/api/dev/commit' -d 'secret=${{ secrets.PANTHEON_MACHINE_TOKEN }}'
 
